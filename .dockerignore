@@ -1,0 +1,48 @@
+# 依赖
+node_modules
+.pnp
+.pnp.*
+
+# Next.js 构建输出（容器内重新构建）
+.next
+out
+build
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# 用户数据（卷挂载，不应进入镜像）
+data
+backups
+
+# 环境变量（通过 docker-compose 注入）
+.env*
+
+# 文档（不影响运行）
+*.md
+LICENSE
+CONTRIBUTING.md
+
+# IDE
+.vscode
+.idea
+
+# 测试
+coverage
+*.test.*
+*.spec.*
+
+# 杂项
+.DS_Store
+*.log
+npm-debug.log*
+*.tsbuildinfo
+
+# Vercel / 部署
+.vercel
+
+# 当前正在编辑的临时文件
+*.swp
+*.swo

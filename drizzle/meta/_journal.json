@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1778731138392,
+      "tag": "0000_noisy_songbird",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1778731138393,
+      "tag": "0001_world_info_links",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1778731138394,
+      "tag": "0002_textgen_preset",
+      "breakpoints": true
+    }
+  ]
+}
