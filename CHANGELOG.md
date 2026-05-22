@@ -15,6 +15,19 @@
 > - 新增 schema 字段优先使用「带默认值的可空列」，避免破坏旧数据
 > - 涉及数据迁移脚本时，需在 PR 描述中写明回滚指引
 
+## [0.1.1](https://github.com/LittlebearHat/sillytavern-next/compare/v0.1.0...v0.1.1) (2026-05-22)
+
+
+### ✨ 新增 (Features)
+
+* 新增数据库备份 ([e0e8b5a](https://github.com/LittlebearHat/sillytavern-next/commit/e0e8b5a09333cc284bbe606c69bf73c08c88c500))
+* 项目初始化 ([3a95f34](https://github.com/LittlebearHat/sillytavern-next/commit/3a95f347bb42fa1331203f5dcd089d11f21308ba))
+
+
+### 📝 文档 (Documentation)
+
+* action接管changelog ([6c16e63](https://github.com/LittlebearHat/sillytavern-next/commit/6c16e63c3ce212373f56666ffe4f45660fdcc42f))
+
 ## [0.1.0] - 2026-05-13
 
 ### Added
