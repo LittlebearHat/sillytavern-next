@@ -155,6 +155,53 @@ npm run typecheck        # TypeScript 类型检查
 - **AUTH_SECRET 必须强随机**：用 `openssl rand -hex 32` 生成
 - **反向代理建议**：生产环境前置 Nginx/Caddy 提供 HTTPS
 
+## 🔄 升级指南
+
+升级到新版本时请遵循以下步骤，项目会自动完成数据备份。
+
+### 升级前准备
+
+1. **查看 [CHANGELOG.md](./CHANGELOG.md)**：确认是否包含 ⚠️ Breaking Changes 与对应迁移步骤
+2. **自动备份机制**：每次启动（容器 entrypoint / `npm run setup`）都会在迁移前自动备份数据库到 `data/backups/`，默认保留最近 5 份，命名 `sillytavern.db.bak.<YYYYMMDD-HHMMSS>`
+3. **重要数据建议手动多备一份**：可额外复制整个 `data/` 目录到外部存储
+
+### Docker 部署升级
+
+```bash
+git pull
+docker compose up -d --build
+# 容器启动会自动执行：备份 → 迁移 → seed → 启动服务
+# 备份文件位于 ./data/backups/
+```
+
+### 本地开发升级
+
+```bash
+git pull
+npm install
+npm run setup   # 自动备份现有数据库后再执行迁移
+npm run dev
+```
+
+### 升级失败回滚
+
+迁移失败时启动日志会打印类似如下命令（路径以实际备份为准）：
+
+```
+[entrypoint][ERROR] 如需回滚，请执行：
+[entrypoint][ERROR]   docker compose down
+[entrypoint][ERROR]   cp /app/data/backups/sillytavern.db.bak.20260513-120000 /app/data/sillytavern.db
+[entrypoint][ERROR]   docker compose up -d
+```
+
+本地开发场景下提示信息相同，把容器命令换成直接覆盖 `data/sillytavern.db` 即可。
+
+### 备份保留策略
+
+- 默认保留最近 **5 份** 自动备份；超出会按 mtime 删除最旧的
+- WAL 模式下会连同 `.db-wal` / `.db-shm` 一并备份
+- 如需调整保留份数，修改 `docker-entrypoint.sh` 与 `scripts/start.ts` 中的 `KEEP_BACKUPS`
+
 ## 🤝 贡献
 
 欢迎提 Issue 和 PR！请先阅读 [CONTRIBUTING.md](./CONTRIBUTING.md)。
