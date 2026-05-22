@@ -1,0 +1,28 @@
+{
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "release-type": "node",
+  "include-component-in-tag": false,
+  "include-v-in-tag": true,
+  "bump-minor-pre-major": true,
+  "bump-patch-for-minor-pre-major": true,
+  "draft": false,
+  "prerelease": false,
+  "packages": {
+    ".": {
+      "package-name": "sillytavern-next",
+      "changelog-path": "CHANGELOG.md",
+      "changelog-sections": [
+        { "type": "feat", "section": "✨ 新增 (Features)", "hidden": false },
+        { "type": "fix", "section": "🐛 修复 (Bug Fixes)", "hidden": false },
+        { "type": "perf", "section": "⚡ 性能 (Performance)", "hidden": false },
+        { "type": "refactor", "section": "♻️ 重构 (Refactoring)", "hidden": false },
+        { "type": "docs", "section": "📝 文档 (Documentation)", "hidden": false },
+        { "type": "build", "section": "📦 构建 (Build)", "hidden": false },
+        { "type": "ci", "section": "👷 CI", "hidden": true },
+        { "type": "chore", "section": "🔧 其他 (Chores)", "hidden": true },
+        { "type": "test", "section": "✅ 测试 (Tests)", "hidden": true },
+        { "type": "style", "section": "💄 样式 (Style)", "hidden": true }
+      ]
+    }
+  }
+}

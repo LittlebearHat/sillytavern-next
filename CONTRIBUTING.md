@@ -76,6 +76,32 @@ fix(branch): 修复消息 ID 前后端不同步导致分支创建失败
 refactor(characters): 提取 TagsEditor 为共享组件
 ```
 
+### 版本号与 CHANGELOG 自动化
+
+项目接入 [release-please](https://github.com/googleapis/release-please)，版本号和 CHANGELOG 都会根据 Conventional Commits **自动生成**。贡献者无需亲手修改 `package.json` 的 `version` 或 `CHANGELOG.md`。
+
+**触发规则**（合入 `main` 后生效）：
+
+| Commit 形式 | 版本变化（v0.x 阶段） |
+|------------|-----------------------|
+| `fix:` `perf:` `refactor:` | patch：0.1.0 → 0.1.1 |
+| `feat:` | minor：0.1.0 → 0.2.0 |
+| `feat!:` / `fix!:` / commit body 包含 `BREAKING CHANGE:` | minor：0.1.0 → 0.2.0（v0.x 不跳 major）并生成 ⚠️ BREAKING CHANGES 小节 |
+| `docs:` `chore:` `test:` `style:` `ci:` | 不触发 release |
+
+**工作流**：
+1. PR 合入 `main` 后，GitHub Action `release-please` 自动创建或更新一条名为 `chore(main): release x.y.z` 的 PR
+2. 该 PR 中包含：版本 bump、CHANGELOG 更新、`.release-please-manifest.json` 同步
+3. Maintainer review 后合并：自动打 git tag、创建 GitHub Release
+
+**Breaking Change 示例**：
+```
+feat(api)!: 将 /api/chats/:id/branch 响应体中 messageId 重命名为 anchorMessageId
+
+BREAKING CHANGE: 调用者需要将请求 body 中的 `messageId` 字段改为 `anchorMessageId`。
+升级脚本：无需数据迁移，仅需重启服务。
+```
+
 ### PR 检查清单
 
 提交 PR 前请确保：
