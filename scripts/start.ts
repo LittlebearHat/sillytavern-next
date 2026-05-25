@@ -65,10 +65,28 @@ backupDatabase();
 // 3. 运行 drizzle 迁移
 console.log("[setup] 执行数据库迁移...");
 try {
-  execSync("npx drizzle-kit migrate", { stdio: "inherit", cwd: ROOT });
+  const result = execSync("npx drizzle-kit migrate", { stdio: "pipe", cwd: ROOT });
+  if (result) process.stdout.write(result);
   console.log("[setup] 数据库迁移完成");
 } catch (e) {
-  console.error("[setup][ERROR] 数据库迁移失败:", (e as Error).message);
+  const err = e as Error & { stdout?: Buffer; stderr?: Buffer };
+  const stdout = err.stdout?.toString() ?? "";
+  const stderr = err.stderr?.toString() ?? "";
+  const combined = stdout + stderr + err.message;
+  process.stdout.write(stdout);
+  process.stderr.write(stderr);
+
+  if (combined.includes("duplicate column")) {
+    console.error(
+      "\n[setup][ERROR] 迁移失败：数据库列已存在（duplicate column）。",
+      "\n[setup][ERROR] 这通常是由 drizzle push 或旧版本直接修改了 schema 导致迁移记录不同步。",
+      "\n[setup][ERROR] 请运行以下命令手动标记迁移为已完成后重试：",
+      "\n[setup][ERROR]   node scripts/fix-migrations.mjs"
+    );
+  } else {
+    console.error("[setup][ERROR] 数据库迁移失败:", err.message);
+  }
+
   if (lastBackup) {
     console.error("[setup][ERROR] 如需回滚至升级前状态，请执行：");
     console.error(`[setup][ERROR]   cp '${lastBackup}' '${dbPath}'`);

@@ -19,6 +19,22 @@
 
 ## 🚀 快速开始
 
+### 环境要求
+
+| 依赖 | 要求 | 说明 |
+|------|------|---------|
+| **Node.js** | ≥ 20.0.0 | 推荐 20 LTS，[下载地址](https://nodejs.org/) |
+| **npm** | ≥ 9.0.0 | 随 Node.js 自带 |
+| **Windows 额外依赖** | VS Build Tools C++ 工具链 | `better-sqlite3` 是原生模块，需要本地编译；**推荐用 Docker 方式避开此问题** |
+| **macOS/Linux** | 无额外依赖 | Xcode CLT / build-essential 通常已预装 |
+
+> **网络说明（国内用户）**：
+> - `npm install` 需访问 npm registry，建议配置镜像加速下载：
+>   ```bash
+>   npm config set registry https://registry.npmmirror.com
+>   ```
+> - `better-sqlite3` 编译阶段会从 GitHub 下载二进制，如失败可开由梯子重试，或改用 Docker 部署方式。
+
 ### 方式 1: Docker（推荐）
 
 ```bash
@@ -45,9 +61,9 @@ cd sillytavern-next
 
 # 1. 准备环境变量
 cp .env.example .env.local
-# 编辑 .env.local，至少设置 AUTH_SECRET
+# 编辑 .env.local，至少设置 AUTH_SECRET（可随手填任意字符串，生产环境请用强随机串）
 
-# 2. 安装依赖
+# 2. 安装依赖（国内用户可先切换 npm 镜像： npm config set registry https://registry.npmmirror.com）
 npm install
 
 # 3. 一键初始化（迁移 + 种子数据）
@@ -58,6 +74,16 @@ npm run dev
 ```
 
 打开 http://localhost:3000 ，默认账号 `admin/admin`。
+
+#### Windows 用户额外步骤
+
+`better-sqlite3` 是 C++ 原生模块，Windows 下 `npm install` 时需要 VS Build Tools：
+
+1. 下载 [Visual Studio Build Tools](https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2022)
+2. 安装时勾选 **☑ C++ 构建工具** 工作负载
+3. 安装完成后重新打开终端，再运行 `npm install`
+
+> 如果不想配置编译环境，**强烈建议改用 Docker 方式部署**。
 
 ## 🔧 环境变量
 
