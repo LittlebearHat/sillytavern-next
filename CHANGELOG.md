@@ -15,6 +15,15 @@
 > - 新增 schema 字段优先使用「带默认值的可空列」，避免破坏旧数据
 > - 涉及数据迁移脚本时，需在 PR 描述中写明回滚指引
 
+## [0.2.2](https://github.com/LittlebearHat/sillytavern-next/compare/v0.2.1...v0.2.2) (2026-05-26)
+
+
+### 🐛 修复 (Bug Fixes)
+
+* sql语法不兼容问题 ([00bd54d](https://github.com/LittlebearHat/sillytavern-next/commit/00bd54d721af40dc10951726752ad6c7d97c6ae5))
+* 修复cp指令错误问题 ([e6bc396](https://github.com/LittlebearHat/sillytavern-next/commit/e6bc396df45868d8db6663bcb28a876b0658c2f1))
+* 修复初始化环境配置问题，新增文档 ([00566df](https://github.com/LittlebearHat/sillytavern-next/commit/00566df5244b8d7a9b3a990e12806d4c201b6025))
+
 ## [0.2.1](https://github.com/LittlebearHat/sillytavern-next/compare/v0.2.0...v0.2.1) (2026-05-22)
 
 
